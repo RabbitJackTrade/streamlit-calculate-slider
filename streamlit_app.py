@@ -1,38 +1,29 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
-
+import pandas as pd
 """
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
+# My first app
+Here's our first attempt at using data to create a table without write():
 """
 
+df = pd.DataFrame({'Units_num': [20,70,0], 
+                   'Own_pct': [0,0,0]})
+df['Own_pct'] = df.Units_num/ df.Units_num.sum()
+df.loc['Units_total']= df.sum(numeric_only=True, axis=0)
+df['Units_num'] = df['Units_num'].astype(int)
+df.index = ['Member_1', 'Member_2', 'Exec',' Total']
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+"""
+mushi = [10,20,30,40]
+option = st.sidebar.selectbox(
+    'How many units in the grant?',    
+     mushi)
+'You selected: ', option
+"""
+score = st.sidebar.slider('Select number of units to grant', min_value=5, max_value=40, value = 5) # Getting the input.
+df.at['Exec','Units_num']=score
+df.loc[' Total']= df.iloc[0:3].sum(numeric_only=True, axis=0)
+total = df.iloc[0:3].sum(numeric_only=True, axis=0).to_list()[0]
+df['Own_pct'] = (df.Units_num/ total).map("{:.2%}".format)
 
-    Point = namedtuple('Point', 'x y')
-    data = []
 
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+st.write(df)
