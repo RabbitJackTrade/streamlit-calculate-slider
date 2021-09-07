@@ -17,5 +17,5 @@ df.loc[' Total']= df.iloc[0:3].sum(numeric_only=True, axis=0)
 total = df.iloc[0:3].sum(numeric_only=True, axis=0).to_list()[0]
 df['Own_pct'] = (df.Units_num/ total).map("{:.2%}".format)
 df.style.set_properties(subset=['text'], **{'width': '300px'})
-
+pd.set_option('display.max_columns', 1000, 'display.width', 1000, 'display.max_rows',1000)
 st.write(df)
