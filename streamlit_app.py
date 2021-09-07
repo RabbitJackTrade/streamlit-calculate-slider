@@ -20,6 +20,10 @@ df['Own_pct'] = (df.Units_num/ total).map("{:.2%}".format)
 #st.write(df)
 #works for width
 #st.table(df)
-st.dataframe(df.style.apply(lambda x: ['background: lightgreen' if x.name =="Exec" 
+#doesn't work for width
+#st.dataframe(df.style.apply(lambda x: ['background: lightgreen' if x.name =="Exec" 
+                              else '' for i in x], 
+                   axis=1))
+st.table(df.style.apply(lambda x: ['background: lightgreen' if x.name =="Exec" 
                               else '' for i in x], 
                    axis=1))
