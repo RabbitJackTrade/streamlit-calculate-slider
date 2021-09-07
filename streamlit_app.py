@@ -11,12 +11,12 @@ df['Own_pct'] = df.Units_num/ df.Units_num.sum()
 df.loc['Units_total']= df.sum(numeric_only=True, axis=0)
 df['Units_num'] = df['Units_num'].astype(int)
 df.index = ['Member_1', 'Member_2', 'Exec',' Total']
-score = st.sidebar.slider('Select number of units to grant', min_value=5, max_value=40, value = 5) # Getting the input.
+score = st.sidebar.slider('Select number of units to grant', min_value=0, max_value=40, value = 5) # Getting the input.
 df.at['Exec','Units_num']=score
 df.loc[' Total']= df.iloc[0:3].sum(numeric_only=True, axis=0)
 total = df.iloc[0:3].sum(numeric_only=True, axis=0).to_list()[0]
 df['Own_pct'] = (df.Units_num/ total).map("{:.2%}".format)
-#doesn't work for width
+#doesn't work for width in Heroku
 #st.write(df)
 #works for width
 #st.table(df)
