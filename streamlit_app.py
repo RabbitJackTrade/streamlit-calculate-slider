@@ -92,7 +92,7 @@ ash = 250000
 
 pps1 = st.sidebar.slider('Select pps for inital sale', min_value=2, max_value=30, value = 2)
 pps2 = st.sidebar.slider('Select pps for the final sale', min_value=2, max_value=30, value = 2)
-forf = st.sidebar.slider('Select forfeiture portion', min_value=0.0, max_value=0.5, value = 0.05, format = "\n%1$f%%")
+forf = st.sidebar.slider('Select forfeiture portion', min_value=0.0, max_value=0.5, value = 0.05)
 dispo = st.sidebar.slider('Select initial disposition portion', min_value=0.0, max_value=0.7, value = 0.05)
 
 
@@ -121,6 +121,6 @@ df.iloc[12,1] = df.iloc[4,1] + df.iloc[10,1]
 df.iloc[13,1] = df.iloc[6,1] + df.iloc[11,1]
 
 df.iloc[:,1] = df.iloc[:,1].apply(lambda x: "${0:,.0f}".format(x))
-df
+st.table(df)
 
 
