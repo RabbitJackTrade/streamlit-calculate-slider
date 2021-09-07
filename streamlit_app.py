@@ -16,5 +16,10 @@ df.at['Exec','Units_num']=score
 df.loc[' Total']= df.iloc[0:3].sum(numeric_only=True, axis=0)
 total = df.iloc[0:3].sum(numeric_only=True, axis=0).to_list()[0]
 df['Own_pct'] = (df.Units_num/ total).map("{:.2%}".format)
+#doesn't work for width
 #st.write(df)
-st.table(df)
+#works for width
+#st.table(df)
+st.dataframe(df.style.apply(lambda x: ['background: lightgreen' if x.name =="Exec" 
+                              else '' for i in x], 
+                   axis=1))
