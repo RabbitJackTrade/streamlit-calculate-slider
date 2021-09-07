@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 """
 # My first app
-Here's our first attempt at using data to create a table without write():
+First attempt at using data to create a table with slider:
 """
 
 df = pd.DataFrame({'Units_num': [20,70,0], 
