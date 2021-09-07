@@ -16,6 +16,6 @@ df.at['Exec','Units_num']=score
 df.loc[' Total']= df.iloc[0:3].sum(numeric_only=True, axis=0)
 total = df.iloc[0:3].sum(numeric_only=True, axis=0).to_list()[0]
 df['Own_pct'] = (df.Units_num/ total).map("{:.2%}".format)
-
+df.style.set_properties(subset=['text'], **{'width': '300px'})
 
 st.write(df)
